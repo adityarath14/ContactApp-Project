@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Contact List</h1>
+    <a href="{% url 'create_contact' %}" class="btn btn-primary mb-2">Add Contact</a>
+    <ul class="list_group">
+        {% for contact in contacts %}
+            <li class="list_group_item">
+                <strong>{{contact.name}}</strong> - {{contact.phone}} - {{contact.email}}
+                <div class="mt-2">
+                    <a href="{% url 'update_contact' contact.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{% url 'delete_contact' contact.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
